@@ -1,0 +1,26 @@
+<h1>Video Stream Example</h1>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script src="http://localhost:8000/public/js/videojs-contrib-hls.js"></script>
+<script src="http://localhost:8000/public/js/videojs-contrib-hls.min.js"></script>
+
+<!-- Or if you want a more recent canary version -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@canary"></script> -->
+<video id=video width="1280" height="720" class="video-js vjs-default-skin" controls>
+
+</video>
+<script>
+    var video = document.getElementById('video');
+    if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource('http://localhost:8000/media/1/stream/');
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function () {
+            video.play();
+        });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = 'http://localhost:8000/media/1/stream/';
+        video.addEventListener('loadedmetadata', function () {
+            video.play();
+        });
+    }
+</script>
