@@ -1,5 +1,7 @@
 assets/*
 
+.env
+
 *.exe
 *.so
 *.bin
